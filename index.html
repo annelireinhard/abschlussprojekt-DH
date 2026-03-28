@@ -1,18 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <div id="head-placeholder"></div>
-    <!--<style src="layout.css"></style>-->
-    <script src="scripts/loadComponents.js"></script>
+<head> <!--Partie invisible (métadonnées de la page) -->
+    <meta charset="UTF-8">
+    <title>Drago Jančar – Severni sij</title>
+    <link rel="stylesheet" href="css/layout.css">
 </head>
 
 <body>
-    <p>Hauptseite</p>
 
+    <header>
+        <h1>Drago Jančar – <em>Severni sij</em> / <em>Aurore boréale</em></h1>
+    </header>
+
+    <main id="edition">
+
+        <div class="column" id="column-sl">
+            <h2>Slovenščina</h2>
+            <div class="text-content" id="text-sl"></div>
+        </div>
+
+        <div class="column" id="column-fr">
+            <h2>Français</h2>
+            <div class="text-content" id="text-fr"></div>
+        </div>
+
+    </main>
+
+    <script src="scripts/parser.js"></script>
+    <script src="scripts/main.js"></script>
 
 </body>
-
-
 
 </html>

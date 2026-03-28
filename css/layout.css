@@ -1,1 +1,61 @@
-p {font-size: 30;}
+/* ========== GÉNÉRAL ========== */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Georgia, serif;
+    font-size: 16px;
+    color: #222;
+    background-color: #fafafa;
+}
+
+header {
+    text-align: center;
+    padding: 2rem 1rem 1rem;
+    border-bottom: 1px solid #ccc;
+}
+
+header h1 {
+    font-size: 1.3rem;
+    font-weight: normal;
+    letter-spacing: 0.03em;
+}
+
+
+/* ========== MISE EN PAGE DES COLONNES ========== */
+
+#edition {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.column {
+    flex: 1;
+    min-width: 0;
+}
+
+.column h2 {
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #888;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #ddd;
+}
+
+
+/* ========== TEXTE ========== */
+
+.paragraph {
+    margin-bottom: 1.5rem;
+}
+
+.segment {
+    display: inline;
+    line-height: 1.8;
+}
