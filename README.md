@@ -1,6 +1,10 @@
 # Abschlussprojekt-DH
 
-## Concept de base
+- Objectif 1: affichage parallèle
+- Objectif 2: correspondances / surlignage
+- objectif 3: afficher / masquer
+
+## Concept de base – Objectifs 1 et 2
 
 ### Problème
 J'aimerais coder le projet avec ton aide, mais j'ai besoin de comprendre ce que je fais car je n'ai que de très vagues notions de programmation.
@@ -66,7 +70,7 @@ source_texts/
     - Passe chaque fichier au parser
     - Place le résultat dans la bonne colonne de index.html
 
-## Squelette et mise en page
+## Squelette et mise en page – Objectif 1
 
 ### index.html
 
@@ -103,7 +107,7 @@ row est la valeur par défaut de flex, donc cette ligne est techniquement option
     - Sous le header : une ligne qui sépare le titre de la page du contenu
     - Sous chaque .column h2 : une ligne fine sous le titre de chaque colonne
 
-## Code – affichage des textes
+## Code – Objectif 1
 
 ### parser.js
 
@@ -194,7 +198,7 @@ document.getElementById() retrouve un élément de la page par son id — ici le
 
 loadTexts(): La dernière ligne appelle simplement la fonction pour lancer tout le processus. Sans elle, tout le code serait défini mais rien ne s'exécuterait.
 
-## Test – objectif n°1
+## Test – Objectif 1
 
 ### Problèmes
 
@@ -203,4 +207,53 @@ loadTexts(): La dernière ligne appelle simplement la fonction pour lancer tout 
 
 ### Mise en page (à régler plus tard)
 - trop d'espace entre les paragraphes
-- j'aimerais séparer les textes dans des cartes (pas directement sur la page)
+- j'aimerais séparer les textes dans des cartes (pas directement sur la page) – lié à l'objectif n°3: afficher/masquer les versions
+- le texte n'est pas justifié
+- il manque la césure conditionnelle
+
+
+## Squelette, mise en page et code – Objectif 2
+
+### La logique de la synchronisation
+Quand l'utilisateur clique sur un segment, il se passe trois choses :
+1. Identifier ce qui a été cliqué
+Le navigateur détecte le clic et remonte jusqu'au <span> qui porte un data-id. On lit cet identifiant — par exemple "s7".
+2. Effacer la mise en évidence précédente
+Avant de surligner le nouveau segment, on efface tous les surlignages existants — sinon ils s'accumulent au fil des clics.
+3. Surligner tous les segments portant ce data-id
+On cherche tous les éléments de la page qui ont data-id="s7" — dans toutes les colonnes visibles — et on leur applique une classe CSS qui les met en évidence.
+
+### Mise en page
+
+- .segment.highlight: cette notation signifie "un élément qui a à la fois la classe segment ET la classe highlight". C'est la classe qu'on ajoutera dynamiquement au clic. 
+- background-color: #ffe599 est un jaune doux, classique pour la surbrillance. 
+- border-radius: 3px arrondit légèrement les coins. cursor: pointer change le curseur en main pour signaler que l'élément est cliquable.
+- .segment:hover — :hover est ce qu'on appelle une pseudo-classe : elle s'applique automatiquement quand la souris passe sur l'élément, sans qu'on ait besoin de JavaScript. C'est un retour visuel subtil qui indique à l'utilisateur que les segments sont interactifs.
+
+### Programme dynamique
+- J'ai presque tout compris
+- Concaténation de chaînes dans la dernière ligne
+
+## Objectif 3
+
+### Questions préalables
+- masquer une version : les colonnes restantes s'étendent pour occuper tout l'espace disponible
+- bouton x en haut à droite de chaque carte
+- affichage: panneau de contrôle fixe avec cases cochées / décochées
+- panneau de contrôle reste visible
+
+### logique
+
+- index.html — deux ajouts :
+    - Un panneau de contrôle fixe en haut avec deux cases à cocher
+    - Les colonnes existantes deviennent des "cartes" avec un bouton "x"
+- layout.css — trois ajouts :
+    - Le style du panneau de contrôle fixe
+    - Le style des cartes
+    - Le style du bouton "x"
+- main.js — deux ajouts :
+    - La logique du bouton "x" sur chaque carte
+    - La logique des cases à cocher dans le panneau
+
+### Squelette
+

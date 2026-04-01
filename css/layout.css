@@ -12,6 +12,7 @@ body {
 header {
     text-align: center;
     padding: 2rem 1rem 1rem;
+    margin-top: 3rem;
     border-bottom: 1px solid #ccc;
 }
 
@@ -21,8 +22,42 @@ header h1 {
     letter-spacing: 0.03em;
 }
 
+/* ========== PANNEAU DE CONTRÔLE ========== */
 
-/* ========== MISE EN PAGE DES COLONNES ========== */
+#control-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+  padding: 0.6rem 2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+#control-label {
+  font-size: 0.85rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+#control-panel label {
+  font-size: 0.9rem;
+  color: #444;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+
+
+/* ========== MISE EN PAGE DES COLONNES AFFICHEES ========== */
 
 #edition {
     display: flex;
@@ -49,6 +84,35 @@ header h1 {
 }
 
 
+/* ========== COLONNE MASQUÉE ========== */
+
+.column.hidden {
+  display: none;
+}
+
+/* ========== CARTES (ENRICHISSEMENT DES COLONNES) ========== */
+
+.column {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  padding: 1.5rem;
+}
+
+.card-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.card-header h2 {
+  margin: 0;
+}
+
+
 /* ========== TEXTE ========== */
 
 .paragraph {
@@ -58,4 +122,36 @@ header h1 {
 .segment {
     display: inline;
     line-height: 1.8;
+}
+
+/* ========== BOUTON FERMER ========== */
+
+.close-btn {
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  line-height: 1;
+}
+
+.close-btn:hover {
+  background-color: #f0f0f0;
+  color: #555;
+}
+
+/* ========== SYNCHRONISATION ========== */
+
+.segment.highlight {
+  background-color: #ffe599;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.segment:hover {
+  background-color: #f0f0f0;
+  border-radius: 3px;
+  cursor: pointer;
 }

@@ -9,6 +9,17 @@
 
 <body> <!--partie visible à l'écran-->
 
+    <!-- PANNEAU DE CONTRÔLE -->
+    <div id="control-panel">
+        <span id="control-label">Versions affichées :</span>
+        <label>
+            <input type="checkbox" id="check-sl" checked> Slovenščina
+        </label>
+        <label>
+            <input type="checkbox" id="check-fr" checked> Français
+        </label>
+    </div>
+
     <header> <!--titre général-->
         <h1>Drago Jančar – <em>Severni sij</em> / <em>Aurore boréale</em></h1>
     </header>
@@ -16,14 +27,32 @@
     <main id="edition">
 
         <div class="column" id="column-sl">
+            <div class="card-header">
+                <h2>Slovenščina</h2>
+                <button class="close-btn" data-target="column-sl" data-check="check-sl">✕</button> <!-- = close button pour fermer le panneau -->
+            </div>
+            <div class="text-content" id="text-sl"></div>
+        </div>
+
+        <div class="column" id="column-fr">
+            <div class="card-header">
+                <h2>Français</h2>
+                <button class="close-btn" data-target="column-fr" data-check="check-fr">✕</button>
+            </div>
+            <div class="text-content" id="text-fr"></div>
+        </div>
+
+        <!--- Ancienne version avec colonnes (remplacée par les cartes, avec le bouton X pour les masquer)
+        
+        <div class="column" id="column-sl">
             <h2>Slovenščina</h2>
             <div class="text-content" id="text-sl"></div>
         </div>
 
         <div class="column" id="column-fr">
             <h2>Français</h2>
-            <div class="text-content" id="text-fr"></div> 
-        </div>
+            <div class="text-content" id="text-fr"></div>
+        </div> --->
 
     </main>
 
