@@ -242,18 +242,90 @@ On cherche tous les éléments de la page qui ont data-id="s7" — dans toutes l
 - affichage: panneau de contrôle fixe avec cases cochées / décochées
 - panneau de contrôle reste visible
 
-### logique
+### Concept
 
 - index.html — deux ajouts :
     - Un panneau de contrôle fixe en haut avec deux cases à cocher
-    - Les colonnes existantes deviennent des "cartes" avec un bouton "x"
+    - Les colonnes existantes deviennent des "cartes" avec un bouton "x" –> finalement supprimé car redondant
 - layout.css — trois ajouts :
     - Le style du panneau de contrôle fixe
     - Le style des cartes
-    - Le style du bouton "x"
+    - Le style du bouton "x" –> finalement supprimé car redondant
 - main.js — deux ajouts :
-    - La logique du bouton "x" sur chaque carte
+    - La logique du bouton "x" sur chaque carte –> finalement supprimé car redondant
     - La logique des cases à cocher dans le panneau
 
 ### Squelette
 
+- Le panneau de contrôle:
+    - <label> est une balise HTML qui associe un texte à un élément de formulaire — ici une case à cocher <input type="checkbox"> (= catégorie prédéfinie par HTML). 
+    - L'attribut checked (sans valeur) indique que la case est cochée par défaut au chargement. 
+    - Chaque case a un id unique (check-sl, check-fr) qui permettra à JavaScript de savoir laquelle a été modifiée.
+- <div class="card-header">: Un conteneur qui regroupe le titre <h2> et le bouton "x" sur la même ligne — le CSS s'occupera de les disposer côte à côte. –> pas indispensable en l'absence du bouton X
+
+### Mise en page
+#### Panneau de contrôle
+- position: fixed: C'est la propriété qui "accroche" le panneau en haut de l'écran — il ne défile pas avec la page. top: 0, left: 0, right: 0 l'étire sur toute la largeur de la fenêtre. z-index: 100 garantit qu'il s'affiche par-dessus tout le reste — sans ça, le texte qui défile pourrait passer devant le panneau.
+- margin-top: 3rem sur header: Le panneau fixe "flotte" au-dessus de la page — il n'occupe pas d'espace dans le flux normal du document. Sans ce décalage, le haut de la page serait caché derrière le panneau. On pousse donc tout le contenu vers le bas pour compenser.
+
+#### Création des cartes / Les styles de .column
+- On enrichit la classe .column existante — pas besoin de changer le HTML, les colonnes deviennent automatiquement des cartes. background-color: #ffffff donne un fond blanc. border-radius: 6px arrondit les coins. box-shadow ajoute une ombre légère — la valeur rgba(0, 0, 0, 0.06) signifie noir (0, 0, 0) avec une opacité de 6% (0.06), ce qui donne une ombre très subtile.
+- justify-content: space-between sur .card-header: Dans un conteneur flex, cette propriété pousse les éléments aux deux extrémités — le titre <h2> à gauche, le bouton "✕" à droite. C'est la façon la plus simple d'obtenir cet effet.
+- background: none et border: none sur .close-btn: Par défaut, les navigateurs appliquent un style assez chargé aux boutons — fond gris, bordure en relief. On remet tout à zéro pour partir d'une base neutre et styliser nous-mêmes.
+- .column.hidden: Comme .segment.highlight qu'on a vu pour la synchronisation, c'est une classe qu'on ajoutera et retirera dynamiquement via JavaScript. display: none fait disparaître complètement l'élément — il n'occupe plus aucun espace, et les colonnes restantes s'étendent automatiquement grâce à flex: 1
+    - .hidden — la colonne n'est pas masquée par défaut: La classe .hidden n'est pas présente dans le HTML au chargement de la page. Les colonnes sont donc visibles par défaut, ce qui correspond à ce qu'on a décidé : les deux versions s'affichent dès le départ.
+    - La classe .hidden n'existe dans le CSS que comme une règle en attente — elle ne s'applique que si JavaScript l'ajoute dynamiquement sur un élément. Tant qu'elle n'est pas ajoutée, elle n'a aucun effet. 
+
+### Programmation de la logique du panneau de contrôle
+
+- document.querySelectorAll("#control-panel input[type='checkbox']"): Un sélecteur précis qui cherche tous les <input type="checkbox"> situés à l'intérieur de l'élément #control-panel. C'est plus ciblé que de chercher toutes les cases à cocher de la page — utile si on ajoute d'autres formulaires plus tard.
+- checkbox.addEventListener("change", function() { ... }): On écoute l'événement "change" — il se déclenche chaque fois que l'état d'une case change, qu'on la coche ou décoche. C'est différent de "click" qui se déclencherait aussi si on cliquait sans changer l'état.
+checkbox.id.replace("check-", "column-"). C'est l'astuce centrale de cette fonction. On exploite le fait qu'on a nommé les id de façon cohérente : check-sl correspond à column-sl, check-fr correspond à column-fr. La méthode .replace() remplace une partie d'une chaîne de texte par une autre — ici elle transforme "check-sl" en "column-sl". Ça évite d'écrire des correspondances manuelles, et ça fonctionnera automatiquement pour les deux autres langues quand tu les ajouteras.
+- checkbox.checked: C'est une propriété booléenne (= valeur qui ne peut avoir que deux états / logique binaire) — elle vaut true si la case est cochée, false si elle est décochée. On s'en sert pour décider d'ajouter ou retirer la classe hidden.
+
+**Attention**
+- sélecteur #control-panel input[type='checkbox']: Ce sélecteur est entièrement du côté HTML — il décrit une structure d'éléments dans la page. Le CSS utilise les mêmes sélecteurs, mais ici on est dans JavaScript. Décomposons-le en deux parties :
+    - #control-panel : cible l'élément HTML dont l'id est control-panel — c'est le <div id="control-panel"> dans index.html
+    - input[type='checkbox'] : cherche tous les <input type="checkbox"> qui se trouvent à l'intérieur de cet élément
+    - Le # ne désigne donc pas une section du CSS — il signifie simplement "l'élément dont l'id est...", que ce soit en CSS ou en JavaScript. C'est le même langage de sélection utilisé aux deux endroits.
+
+
+## Ajout des notes de bas de page
+
+- parser.js — il faut lui apprendre à lire les <note> et à insérer les appels de note dans le texte
+- layout.css — pour le style des notes et des appels de note
+
+### Parser
+
+#### Nouvelle fonction: buildNoteMap(notes)
+- Cette fonction construit ce qu'on appelle un dictionnaire — un objet JavaScript où chaque clé est un identifiant de segment ("s9", "s10") et chaque valeur contient le numéro de la note et son contenu. On le construit en premier pour pouvoir le consulter ensuite segment par segment.
+- index + 1 dans forEach: forEach peut recevoir un deuxième paramètre. On ajoute 1 pour que la numérotation commence à 1 et non à 0.
+- note.getAttribute("target").replace("#", ""): Dans le XML, target vaut "#s9" — le # est une convention XML pour signifier une référence interne. On le retire avec .replace() pour obtenir "s9", qui correspond à notre data-id.
+- const seg = note.querySelector("seg"): On cherche l'élément <seg> à l'intérieur de la note courante. Rappelle-toi la structure XML.
+
+#### Nouvelle fonction: création d'une zone de note
+
+- Un objet JavaScript est une collection de paires clé : valeur. La clé est le nom qu'on utilise pour accéder à une valeur. 
+- Par exemple dans notre noteMap : Les clés sont "s9" et "s10". Ce sont elles que Object.keys(noteMap) retourne sous forme de liste : ["s9", "s10"]. C'est la même notion que dans XML_FILES qu'on avait vu plus tôt, où sl et fr étaient les clés.
+
+#### Extension de parseXML()
+- if (noteMap[segId]): On consulte le dictionnaire : si une entrée existe pour ce segment, la condition est vraie et on ajoute l'appel de note. Sinon, on ne fait rien. C'est ce qui rend la fonction générique — elle fonctionne qu'il y ait zéro, une ou dix notes.
+    - En JavaScript, il n'est pas obligatoire d'écrire un else si on ne veut rien faire dans le cas contraire. 
+- Object.keys(noteMap): Object.keys() retourne la liste de toutes les clés d'un objet — ici ["s9", "s10"]. C'est la façon standard de parcourir un dictionnaire avec forEach.
+- if (Object.keys(noteMap).length > 0)
+On vérifie qu'il y a au moins une note avant de construire la zone de notes. Pour la version slovène qui n'a pas de notes, cette condition sera fausse et aucune zone ne sera créée.
+- data-note: C'est un attribut personnalisé qu'on place sur l'appel de note dans le HTML, exactement comme data-id sur les segments. Il stocke l'identifiant du segment auquel la note est rattachée — par exemple data-note="s9". Pour l'instant on ne l'utilise pas encore, mais il sera utile si tu veux plus tard ajouter une interaction — par exemple cliquer sur l'appel de note pour mettre en évidence le segment correspondant, ou inversement. C'est une information qu'on prépare pour l'avenir sans qu'elle coûte quoi que ce soit aujourd'hui.
+
+### Mise en forme
+pas de remarque particulière pour l'instant
+
+### Réglage d'un problème
+- Problème: le texte a disparu
+- Identifier le problème: LiveServe > Firefox > clic droit > inspecter > onglet console
+- Solution: La ligne qui crée noteMap manque dans parseXML(). Tu as bien le code qui utilise noteMap (ligne 40), mais pas la ligne qui le crée — elle a été oubliée lors de la modification du fichier. Il faut ajouter deux lignes de code juste après la création du container.
+    - const notes = xmlDoc.querySelectorAll("note[type='footnote']"); On a déjà vu querySelectorAll — il cherche tous les éléments correspondant à un sélecteur. Ici le sélecteur est "note[type='footnote']", qu'on peut décomposer en deux parties :
+        - note : cherche tous les éléments <note> dans le XML
+        - [type='footnote'] : parmi eux, garde uniquement ceux dont l'attribut type vaut exactement 'footnote' (C'est une précaution : si ton XML contenait d'autres types de notes (<note type="editorial"> par exemple), on ne les attraperait pas. On cible uniquement les notes de bas de page.)
+        - Le résultat est stocké dans notes — une liste de tous les éléments <note type="footnote"> trouvés dans le document.
+    - const noteMap = buildNoteMap(notes); On appelle la fonction buildNoteMap() qu'on a écrite plus bas dans le fichier, en lui passant la liste notes qu'on vient de créer. Elle va parcourir cette liste et construire le dictionnaire dont on a parlé — celui qui associe chaque identifiant de segment à son numéro de note et son contenu. Le résultat — le dictionnaire — est stocké dans noteMap, qui sera ensuite disponible pour tout le reste de la fonction parseXML().
+- En résumé : la première ligne trouve les notes dans le XML, la deuxième les transforme en dictionnaire utilisable. C'est pour ça qu'elles doivent absolument apparaître avant le traitement des paragraphes — on a besoin du dictionnaire prêt avant de commencer à vérifier segment par segment s'il a une note associée.
