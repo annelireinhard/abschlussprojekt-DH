@@ -36,6 +36,8 @@ function loadTexts() {
         document.getElementById("text-fr").appendChild(htmlFr);
         // --- ajout de la synchronisation au clic ---
         setupSync();
+        // --- synchronisation de l'affichage entre panneau de contrôle et textes ---
+        setupControls();
 
     });
 }
@@ -71,4 +73,31 @@ function setupSync() {
         });
 
     });
+}
+
+// ========== AFFICHER / MASQUER LES VERSIONS ==========
+
+function setupControls() {
+
+  // --- Étape 1 : récupérer toutes les cases à cocher du panneau ---
+  const checkboxes = document.querySelectorAll("#control-panel input[type='checkbox']");
+
+  // --- Étape 2 : écouter chaque case à cocher ---
+  checkboxes.forEach(function(checkbox) {
+
+    checkbox.addEventListener("change", function() {
+
+      // --- Étape 3 : identifier la colonne correspondante ---
+      const columnId = checkbox.id.replace("check-", "column-"); //--- en fait on ne remplace que la partie de l'idée qui diffère ---
+      const column = document.getElementById(columnId);
+
+      // --- Étape 4 : afficher ou masquer selon l'état de la case ---
+      if (checkbox.checked) {
+        column.classList.remove("hidden");
+      } else {
+        column.classList.add("hidden");
+      }
+
+    });
+  });
 }

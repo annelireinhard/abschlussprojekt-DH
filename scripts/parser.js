@@ -11,6 +11,10 @@ function parseXML(xmlString) {
     // --- Étape 2 : créer un conteneur HTML vide qui recevra le résultat ---
     const container = document.createElement("div");
 
+    // --- NOUVEAU : collecter les notes avant de traiter les paragraphes ---
+    const notes = xmlDoc.querySelectorAll("note[type='footnote']");
+    const noteMap = buildNoteMap(notes);
+
     // --- Étape 3 : trouver tous les paragraphes dans le XML / génère une liste---
     const paragraphs = xmlDoc.querySelectorAll("p");
 
@@ -35,6 +39,17 @@ function parseXML(xmlString) {
             // --- Étape 6 : gérer le contenu du segment (texte + italiques) ---
             segSpan.innerHTML = convertContent(seg);
 
+            // --- Ajout d'un appel de note s'il y en a une ---
+            const segId = seg.getAttribute("xml:id");
+            if (noteMap[segId]) {
+                const noteNumber = noteMap[segId].number;
+                const callSpan = document.createElement("span");
+                callSpan.classList.add("note-call");
+                callSpan.textContent = noteNumber;
+                callSpan.setAttribute("data-note", segId);
+                segSpan.appendChild(callSpan);
+            }
+
             // Ajouter le span au paragraphe
             pDiv.appendChild(segSpan);
         });
@@ -43,11 +58,18 @@ function parseXML(xmlString) {
         container.appendChild(pDiv);
     });
 
+    // --- Construire la zone de notes en bas de carte s'il y a des notes ---
+    if (Object.keys(noteMap).length > 0) {
+        const notesDiv = buildNotesSection(noteMap);
+        container.appendChild(notesDiv);
+    }
+
+
     return container;
 }
 
 
-// ========== FONCTION AUXILIAIRE ==========
+// ========== FONCTION DE FORMATAGE (ITALIQUE) ==========
 // convertContent() gère le contenu interne d'un segment :
 // elle convertit <hi rend="italic"> en <em> et récupère le texte.
 
@@ -69,4 +91,51 @@ function convertContent(seg) {
     });
 
     return html;
+}
+
+// ========== FONCTION: ASSOCIATION SEGMENT / NOTE (DICTIONNAIRE DE NOTES) ==========
+// buildNoteMap() : construit un dictionnaire des notes
+// associant chaque segment cible à son numéro et son contenu
+
+function buildNoteMap(notes) {
+    const noteMap = {};
+
+    notes.forEach(function (note, index) {
+
+        // "target" vaut par exemple "#s9" — on retire le # pour avoir "s9"
+        const target = note.getAttribute("target").replace("#", "");
+        const seg = note.querySelector("seg");
+
+        noteMap[target] = {
+            number: index + 1,
+            content: convertContent(seg)
+        };
+
+    });
+
+    return noteMap;
+}
+
+// ========== FONCTION: CREATION DE LA NOTE DE BAS DE PAGE ============
+// buildNotesSection() : construit la zone de notes en bas de carte
+
+function buildNotesSection(noteMap) {
+    const section = document.createElement("div");
+    section.classList.add("notes-section");
+
+    const separator = document.createElement("hr");
+    section.appendChild(separator);
+
+    Object.keys(noteMap).forEach(function (segId) {
+        const note = noteMap[segId];
+
+        const noteDiv = document.createElement("div");
+        noteDiv.classList.add("footnote");
+
+        noteDiv.innerHTML = "<span class='note-number'>" + note.number + ".</span> " + note.content;
+
+        section.appendChild(noteDiv);
+    });
+
+    return section;
 }

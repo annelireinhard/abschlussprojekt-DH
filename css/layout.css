@@ -124,7 +124,38 @@ header h1 {
     line-height: 1.8;
 }
 
-/* ========== BOUTON FERMER ========== */
+/* ========== NOTES DE BAS DE PAGE 
+.notes-section {
+  margin-top: 2rem;
+}
+
+.notes-section hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin-bottom: 1rem;
+}
+
+.footnote {
+  font-size: 0.85rem;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+
+.note-number {
+  font-weight: bold;
+}
+
+.note-call {
+  font-size: 0.75rem;
+  vertical-align: super;
+  color: #888;
+  margin-left: 1px;
+  cursor: default;
+} ========== */
+
+
+/* ========== BOUTON FERMER (SUPERFLU AVEC LE PANNEAU DE CONTRÔLE) 
 
 .close-btn {
   background: none;
@@ -141,7 +172,7 @@ header h1 {
   background-color: #f0f0f0;
   color: #555;
 }
-
+========== */
 /* ========== SYNCHRONISATION ========== */
 
 .segment.highlight {
