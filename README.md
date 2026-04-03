@@ -329,3 +329,7 @@ pas de remarque particulière pour l'instant
         - Le résultat est stocké dans notes — une liste de tous les éléments <note type="footnote"> trouvés dans le document.
     - const noteMap = buildNoteMap(notes); On appelle la fonction buildNoteMap() qu'on a écrite plus bas dans le fichier, en lui passant la liste notes qu'on vient de créer. Elle va parcourir cette liste et construire le dictionnaire dont on a parlé — celui qui associe chaque identifiant de segment à son numéro de note et son contenu. Le résultat — le dictionnaire — est stocké dans noteMap, qui sera ensuite disponible pour tout le reste de la fonction parseXML().
 - En résumé : la première ligne trouve les notes dans le XML, la deuxième les transforme en dictionnaire utilisable. C'est pour ça qu'elles doivent absolument apparaître avant le traitement des paragraphes — on a besoin du dictionnaire prêt avant de commencer à vérifier segment par segment s'il a une note associée.
+
+## Amélioration de la mise en page (autonome)
+
+## Extensions à 4 voire 5 textes (autonome)
