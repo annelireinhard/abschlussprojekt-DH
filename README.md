@@ -330,6 +330,42 @@ pas de remarque particulière pour l'instant
     - const noteMap = buildNoteMap(notes); On appelle la fonction buildNoteMap() qu'on a écrite plus bas dans le fichier, en lui passant la liste notes qu'on vient de créer. Elle va parcourir cette liste et construire le dictionnaire dont on a parlé — celui qui associe chaque identifiant de segment à son numéro de note et son contenu. Le résultat — le dictionnaire — est stocké dans noteMap, qui sera ensuite disponible pour tout le reste de la fonction parseXML().
 - En résumé : la première ligne trouve les notes dans le XML, la deuxième les transforme en dictionnaire utilisable. C'est pour ça qu'elles doivent absolument apparaître avant le traitement des paragraphes — on a besoin du dictionnaire prêt avant de commencer à vérifier segment par segment s'il a une note associée.
 
+## Extensions à 4 voire 5 textes (autonome)
+
+### Index.html
+- extension des cases du panneau de contrôle
+    - id
+    - nom
+- extension du header (h1)
+- ajout des colonnes allemand (de) et anglais (en)
+    - id (colonne, texte et bouton)
+    - titre de colonne
+
+### Layout.css
+Rien à modifier pour cette étape, le code est déjà général
+
+### Parser.js
+Rien à modifier pour cette étape, le code est déjà général
+
+### Main.js
+- ajout des chemins vers l'allemand et l'anglais dans XML_FILES
+- ajout des "fetch"
+- ajout à Promise.all et connecter à results
+- ajout au parsing des xml
+- injecter les deux nouveaux fichiers à l'html
+
+### Problèmes à régler
+
+- pas d'appel de note en allemand et anglais, probablement parce que la note renvoie à p2 et pas à un segment s.
+- les notes ne sont pas cliquables et pas highlightées
+
 ## Amélioration de la mise en page (autonome)
 
-## Extensions à 4 voire 5 textes (autonome)
+## To do's
+
+- trop d'espace entre les paragraphes
+- j'aimerais séparer les textes dans des cartes (pas directement sur la page) – lié à l'objectif n°3: afficher/masquer les versions
+- le texte n'est pas justifié
+- il manque la césure conditionnelle
+- appels de note en exposant
+- supprimer tout le highlighting si on clique dans la zone blanche

@@ -5,15 +5,21 @@
 // --- Les chemins vers les fichiers XML ---
 const XML_FILES = {
     sl: "source_texts/Severni_sij_Chap-1.xml",
-    fr: "source_texts/Aurore_boreale_Chap-1.xml"
+    de: "source_texts/Nordlicht_2011_Chap-1.xml",
+    fr: "source_texts/Aurore_boreale_Chap-1.xml",
+    en: "source_texts/Northern_Lights_Chap-1.xml"
 };
 
 // ========== FONCTION PRINCIPALE ==========
 
 function loadTexts() {
 
-    // --- Étape 1 : lancer le chargement des deux fichiers en parallèle ---
+    // --- Étape 1 : lancer le chargement des quatre fichiers en parallèle ---
     const fetchSl = fetch(XML_FILES.sl).then(function (response) {
+        return response.text();
+    });
+
+    const fetchDe = fetch(XML_FILES.de).then(function (response) {
         return response.text();
     });
 
@@ -21,19 +27,30 @@ function loadTexts() {
         return response.text();
     });
 
-    // --- Étape 2 : attendre que les deux fichiers soient chargés ---
-    Promise.all([fetchSl, fetchFr]).then(function (results) {
+    const fetchEn = fetch(XML_FILES.en).then(function (response) {
+        return response.text();
+    });
+
+    // --- Étape 2 : attendre que les quatre fichiers soient chargés ---
+    Promise.all([fetchSl, fetchDe, fetchFr, fetchEn]).then(function (results) {
 
         const xmlStringSl = results[0];
-        const xmlStringFr = results[1];
+        const xmlStringDe = results[1];
+        const xmlStringFr = results[2];
+        const xmlStringEn = results[3]
 
-        // --- Étape 3 : parser les deux XML ---
+        // --- Étape 3 : parser les quatre XML ---
         const htmlSl = parseXML(xmlStringSl);
+        const htmlDe = parseXML(xmlStringDe);
         const htmlFr = parseXML(xmlStringFr);
+        const htmlEn = parseXML(xmlStringEn)
 
         // --- Étape 4 : injecter le résultat dans la page ---
         document.getElementById("text-sl").appendChild(htmlSl);
+        document.getElementById("text-de").appendChild(htmlDe);
         document.getElementById("text-fr").appendChild(htmlFr);
+        document.getElementById("text-en").appendChild(htmlEn)
+        
         // --- ajout de la synchronisation au clic ---
         setupSync();
         // --- synchronisation de l'affichage entre panneau de contrôle et textes ---

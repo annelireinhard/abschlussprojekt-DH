@@ -124,6 +124,20 @@ header h1 {
     line-height: 1.8;
 }
 
+/* ========== SYNCHRONISATION ========== */
+
+.segment.highlight {
+  background-color: #ffe599;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.segment:hover {
+  background-color: #f0f0f0;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
 /* ========== NOTES DE BAS DE PAGE 
 .notes-section {
   margin-top: 2rem;
@@ -173,16 +187,3 @@ header h1 {
   color: #555;
 }
 ========== */
-/* ========== SYNCHRONISATION ========== */
-
-.segment.highlight {
-  background-color: #ffe599;
-  border-radius: 3px;
-  cursor: pointer;
-}
-
-.segment:hover {
-  background-color: #f0f0f0;
-  border-radius: 3px;
-  cursor: pointer;
-}
