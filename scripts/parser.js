@@ -29,7 +29,7 @@ function parseXML(xmlString) {
         // --- Étape 5 : trouver tous les segments dans ce paragraphe ---
         const segments = p.querySelectorAll("seg");
 
-        segments.forEach(function (seg) {
+        segments.forEach(function (seg, index) {
 
             // Créer un span HTML pour ce segment
             const segSpan = document.createElement("span");
@@ -50,8 +50,21 @@ function parseXML(xmlString) {
                 segSpan.appendChild(callSpan);
             }
 
+            if (index === segments.length - 1) {
+                const pId = p.getAttribute("xml:id")
+                if (noteMap[pId]) {
+                    const noteNumber = noteMap[pId].number;
+                    const callSpan = document.createElement("span");
+                    callSpan.classList.add("note-call");
+                    callSpan.textContent = noteNumber;
+                    callSpan.setAttribute("data-note", segId);
+                    segSpan.appendChild(callSpan);
+                }
+            }
+        
             // Ajouter le span au paragraphe
-            pDiv.appendChild(segSpan);
+        pDiv.appendChild(segSpan);
+
         });
 
         // Ajouter le paragraphe au conteneur
@@ -108,7 +121,7 @@ function buildNoteMap(notes) {
 
         noteMap[target] = {
             number: index + 1,
-            content: convertContent(seg)
+            content: convertContent(seg),
         };
 
     });
