@@ -138,7 +138,7 @@ header h1 {
   cursor: pointer;
 }
 
-/* ========== NOTES DE BAS DE PAGE 
+/* ========== NOTES DE BAS DE PAGE ========== */
 .notes-section {
   margin-top: 2rem;
 }
@@ -166,7 +166,7 @@ header h1 {
   color: #888;
   margin-left: 1px;
   cursor: default;
-} ========== */
+} 
 
 
 /* ========== BOUTON FERMER (SUPERFLU AVEC LE PANNEAU DE CONTRÔLE) 

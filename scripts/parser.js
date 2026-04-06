@@ -118,10 +118,12 @@ function buildNoteMap(notes) {
         // "target" vaut par exemple "#s9" — on retire le # pour avoir "s9"
         const target = note.getAttribute("target").replace("#", "");
         const seg = note.querySelector("seg");
+        const noteId = seg.getAttribute("xml:id");
 
         noteMap[target] = {
             number: index + 1,
             content: convertContent(seg),
+            identifier: noteId,
         };
 
     });
@@ -143,9 +145,10 @@ function buildNotesSection(noteMap) {
         const note = noteMap[segId];
 
         const noteDiv = document.createElement("div");
-        noteDiv.classList.add("footnote");
+        noteDiv.classList.add("footnote", "segment");
+        noteDiv.setAttribute("data-id", note.identifier);
 
-        noteDiv.innerHTML = "<span class='note-number'>" + note.number + ".</span> " + note.content;
+        noteDiv.innerHTML = "<span class='note-number'>" + note.number + ".</span> " + note.content + "<br>";
 
         section.appendChild(noteDiv);
     });

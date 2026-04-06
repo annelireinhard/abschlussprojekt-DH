@@ -357,7 +357,14 @@ Rien à modifier pour cette étape, le code est déjà général
 ### Problèmes à régler
 
 - pas d'appel de note en allemand et anglais, probablement parce que la note renvoie à p2 et pas à un segment s.
+    - démarche pour la solution -> Claude
+    - essai autonome
+    - learnings: syntaxe du if avec () et {}, = vs ===
+    - placements d'ordres à exécuter
 - les notes ne sont pas cliquables et pas highlightées
+    - résolu avec l'aide de Claude
+- les notes de bas de pages s'affichent à la suite les unes des autres, sans retour à la ligne
+    - insertion d'une balise <br> (source[https://forum.alsacreations.com/topic-1-91254-1-Resolu-Scriptjs-saut-de-ligne-dans-une-variable-quotes---pas-de.html])
 
 ## Amélioration de la mise en page (autonome)
 
