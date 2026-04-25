@@ -5,7 +5,8 @@
 // --- Les chemins vers les fichiers XML ---
 const XML_FILES = {
     sl: "source_texts/Severni_sij_Chap-1.xml",
-    de: "source_texts/Nordlicht_2011_Chap-1.xml",
+    de_1990: "source_texts/Nordlicht_1990_Chap-1.xml",
+    de_2011: "source_texts/Nordlicht_2011_Chap-1.xml",
     fr: "source_texts/Aurore_boreale_Chap-1.xml",
     en: "source_texts/Northern_Lights_Chap-1.xml"
 };
@@ -19,7 +20,11 @@ function loadTexts() {
         return response.text();
     });
 
-    const fetchDe = fetch(XML_FILES.de).then(function (response) {
+    const fetchDe_1990 = fetch(XML_FILES.de_1990).then(function (response) {
+        return response.text();
+    });
+
+    const fetchDe_2011 = fetch(XML_FILES.de_2011).then(function (response) {
         return response.text();
     });
 
@@ -32,22 +37,25 @@ function loadTexts() {
     });
 
     // --- Étape 2 : attendre que les quatre fichiers soient chargés ---
-    Promise.all([fetchSl, fetchDe, fetchFr, fetchEn]).then(function (results) {
+    Promise.all([fetchSl, fetchDe_1990, fetchDe_2011, fetchFr, fetchEn]).then(function (results) {
 
         const xmlStringSl = results[0];
-        const xmlStringDe = results[1];
-        const xmlStringFr = results[2];
-        const xmlStringEn = results[3]
+        const xmlStringDe_1990 = results[1];
+        const xmlStringDe_2011 = results[2];
+        const xmlStringFr = results[3];
+        const xmlStringEn = results[4]
 
         // --- Étape 3 : parser les quatre XML ---
         const htmlSl = parseXML(xmlStringSl);
-        const htmlDe = parseXML(xmlStringDe);
+        const htmlDe_1990 = parseXML(xmlStringDe_1990);
+        const htmlDe_2011 = parseXML(xmlStringDe_2011);
         const htmlFr = parseXML(xmlStringFr);
         const htmlEn = parseXML(xmlStringEn)
 
         // --- Étape 4 : injecter le résultat dans la page ---
         document.getElementById("text-sl").appendChild(htmlSl);
-        document.getElementById("text-de").appendChild(htmlDe);
+        document.getElementById("text-de-1990").appendChild(htmlDe_1990);
+        document.getElementById("text-de-2011").appendChild(htmlDe_2011);
         document.getElementById("text-fr").appendChild(htmlFr);
         document.getElementById("text-en").appendChild(htmlEn)
         

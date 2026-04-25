@@ -370,9 +370,15 @@ Rien à modifier pour cette étape, le code est déjà général
 
 ## To do's
 
-- trop d'espace entre les paragraphes
-- j'aimerais séparer les textes dans des cartes (pas directement sur la page) – lié à l'objectif n°3: afficher/masquer les versions
-- le texte n'est pas justifié
+- trop d'espace entre les paragraphes (W3school, css text spacing)
+- j'aimerais séparer les textes dans des cartes (pas directement sur la page) – lié à l'objectif n°3: afficher/masquer les versions > OK
+- le texte n'est pas justifié –> ok (fait moi-même avec W3school, css text alignment)
 - il manque la césure conditionnelle
-- appels de note en exposant
+- appels de note en exposant > OK
 - supprimer tout le highlighting si on clique dans la zone blanche
+- Les cases ne sont pas cochées au départ, de sorte qu'il faut les cliquer deux fois pour faire disparaître un texte
+- indentation de la première ligne –> ok (W3school, css text spacing)
+
+
+## Remarques critiques
+- Je m'aligne sur la mise en page d'une édition papier, mais j'y perds potentiellement
