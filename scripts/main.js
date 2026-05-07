@@ -4,11 +4,11 @@
 
 // --- Les chemins vers les fichiers XML ---
 const XML_FILES = {
-    sl: "source_texts/Severni_sij_Chap-1.xml",
-    de_1990: "source_texts/Nordlicht_1990_Chap-1.xml",
-    de_2011: "source_texts/Nordlicht_2011_Chap-1.xml",
-    fr: "source_texts/Aurore_boreale_Chap-1.xml",
-    en: "source_texts/Northern_Lights_Chap-1.xml"
+    sl: "../source_texts/Severni_sij_Chap-1.xml",
+    de_1990: "../source_texts/Nordlicht_1990_Chap-1.xml",
+    de_2011: "../source_texts/Nordlicht_2011_Chap-1.xml",
+    fr: "../source_texts/Aurore_boreale_Chap-1.xml",
+    en: "../source_texts/Northern_Lights_Chap-1.xml"
 };
 
 // ========== FONCTION PRINCIPALE ==========

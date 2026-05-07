@@ -1,0 +1,65 @@
+/* ========== GÉNÉRAL ========== */
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Georgia, serif;
+    font-size: 16px;
+    color: #222;
+    background-color: #fafafa;
+}
+
+header {
+    text-align: center;
+    padding: 2rem 1rem 1rem;
+    margin-top: 3rem;
+    border-bottom: 1px solid #ccc;
+}
+
+header h1 {
+    font-size: 1.3rem;
+    font-weight: normal;
+    letter-spacing: 0.03em;
+}
+
+.page-content {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  line-height: 1.8;
+  color: #444;
+}
+
+/* ========== NAVIGATION ========== */
+
+#home-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2rem;
+  margin: 3rem 2rem;
+}
+
+.nav-card {
+  width: 250px;
+  padding: 1.5rem;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.nav-card h2 {
+  font-size: 1rem;
+  font-weight: normal;
+  margin: 0 0 0.5rem 0;
+}
+
+.nav-card a {
+  text-decoration: none;
+  color: #222;
+}
+
+.nav-card a:hover {
+  text-decoration: underline;
+}

@@ -3,15 +3,15 @@
 
 <head> <!--Partie invisible (métadonnées de la page) -->
     <meta charset="UTF-8"> <!-- = unicode -->
-    <title>Drago Jančar – Severni sij</title>
-    <link rel="stylesheet" href="css/layout.css"> <!--lien vers mon fichier css-->
+    <title>Drago Jančar multilingual – Edition</title>
+    <link rel="stylesheet" href="../css/edition.css"> <!--lien vers mon fichier css-->
 </head>
 
 <body> <!--partie visible à l'écran-->
 
     <!-- PANNEAU DE CONTRÔLE -->
     <div id="control-panel">
-        <span id="control-label">Versions affichées :</span>
+        <span id="control-label">Version ein-/ausblenden:</span>
         <label>
             <input type="checkbox" id="check-sl" checked> Slovenščina
         </label>
@@ -27,6 +27,8 @@
         <label>
             <input type="checkbox" id="check-en" checked> English
         </label>
+
+        <a href="../index.html" class="home-btn">Zur Startseite</a>
     </div>
 
     <header> <!--titre général-->
@@ -90,8 +92,8 @@
 
     </main>
 
-    <script src="scripts/parser.js"></script>
-    <script src="scripts/main.js"></script>
+    <script src="../scripts/parser.js"></script>
+    <script src="../scripts/main.js"></script>
     <!--exécution des script APRES lecture du squelette HTML-->
 
 </body>

@@ -55,7 +55,20 @@ header h1 {
   gap: 0.4rem;
 }
 
+.home-btn {
+  margin-left: auto;
+  text-decoration: none;
+  color: #888;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
 
+.home-btn:hover {
+  background-color: #f0f0f0;
+  color: #444;
+}
 
 /* ========== MISE EN PAGE DES COLONNES AFFICHEES ========== */
 
