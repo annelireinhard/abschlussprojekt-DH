@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head> <!--Partie invisible (métadonnées de la page) -->
+    <meta charset="UTF-8"> <!-- = unicode -->
+    <title>Drago Jančar – Severni sij</title>
+    <link rel="stylesheet" href="css/layout.css"> <!--lien vers mon fichier css-->
+</head>
+
+<body> <!--partie visible à l'écran-->
+
+    <!-- PANNEAU DE CONTRÔLE -->
+    <div id="control-panel">
+        <span id="control-label">Versions affichées :</span>
+        <label>
+            <input type="checkbox" id="check-sl" checked> Slovenščina
+        </label>
+        <label>
+            <input type="checkbox" id="check-de-1990" checked> Deutsch (1990)
+        </label>
+        <label>
+            <input type="checkbox" id="check-de-2011" checked> Deutsch (2011)
+        </label>
+        <label>
+            <input type="checkbox" id="check-fr" checked> Français
+        </label>
+        <label>
+            <input type="checkbox" id="check-en" checked> English
+        </label>
+    </div>
+
+    <header> <!--titre général-->
+        <h1>Drago Jančar – <em>Severni sij</em> / <em>Nordlicht</em> / <em>Aurore boréale</em> / <em>Northern
+                Lights</em></h1>
+    </header>
+
+    <main id="edition">
+
+        <div class="column" id="column-sl">
+            <div class="card-header">
+                <h2>Slovenščina</h2>
+                <!--- <button class="close-btn" data-target="column-sl" data-check="check-sl">✕</button>  ========== close button pour fermer le panneau MAIS superflu -->
+            </div>
+            <div class="text-content" id="text-sl"></div>
+        </div>
+
+        <div class="column" id="column-de-1990">
+            <div class="card-header">
+                <h2>Deutsch (1990)</h2>
+                <!--- <button class="close-btn" data-target="column-de" data-check="check-de">✕</button>  ========== close button pour fermer le panneau MAIS superflu -->
+            </div>
+            <div class="text-content" id="text-de-1990"></div>
+        </div>
+        
+        <div class="column" id="column-de-2011">
+            <div class="card-header">
+                <h2>Deutsch (2011)</h2>
+                <!--- <button class="close-btn" data-target="column-de" data-check="check-de">✕</button>  ========== close button pour fermer le panneau MAIS superflu -->
+            </div>
+            <div class="text-content" id="text-de-2011"></div>
+        </div>
+
+        <div class="column" id="column-fr">
+            <div class="card-header">
+                <h2>Français</h2>
+                <!--- <button class="close-btn" data-target="column-fr" data-check="check-fr">✕</button> --->
+            </div>
+            <div class="text-content" id="text-fr"></div>
+        </div>
+
+        <div class="column" id="column-en">
+            <div class="card-header">
+                <h2>English</h2>
+                <!--- <button class="close-btn" data-target="column-en" data-check="check-en">✕</button>  ========== close button pour fermer le panneau MAIS superflu -->
+            </div>
+            <div class="text-content" id="text-en"></div>
+        </div>
+
+        <!--- Ancienne version avec colonnes (remplacée par les cartes, avec le bouton X pour les masquer)
+        
+        <div class="column" id="column-sl">
+            <h2>Slovenščina</h2>
+            <div class="text-content" id="text-sl"></div>
+        </div>
+
+        <div class="column" id="column-fr">
+            <h2>Français</h2>
+            <div class="text-content" id="text-fr"></div>
+        </div> --->
+
+    </main>
+
+    <script src="scripts/parser.js"></script>
+    <script src="scripts/main.js"></script>
+    <!--exécution des script APRES lecture du squelette HTML-->
+
+</body>
+
+</html>
