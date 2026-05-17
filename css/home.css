@@ -3,10 +3,17 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: Georgia, serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
     color: #222;
     background-color: #fafafa;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+  flex: 1;
 }
 
 header {
@@ -17,8 +24,16 @@ header {
 }
 
 header h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-variant: small-caps;
+    letter-spacing: 0.03em;
+}
+
+header h2 {
     font-size: 1.3rem;
     font-weight: normal;
+    font-variant: small-caps;
     letter-spacing: 0.03em;
 }
 
@@ -51,8 +66,9 @@ header h1 {
 
 .nav-card h2 {
   font-size: 1rem;
-  font-weight: normal;
-  margin: 0 0 0.5rem 0;
+  font-weight: bold;
+  font-variant: small-caps;
+  text-align: center;
 }
 
 .nav-card a {
@@ -62,4 +78,18 @@ header h1 {
 
 .nav-card a:hover {
   text-decoration: underline;
+}
+
+/* ========== FOOTER  ========== */
+
+footer {
+  background-color: #ffffff;
+  text-align: center;
+  font-size: 0.7rem;
+  color: #888;
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 0.08em;
+  line-height: 1.6;
+  border-top: 1px solid #ddd;
+  padding: 1rem 2rem;
 }

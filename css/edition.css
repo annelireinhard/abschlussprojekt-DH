@@ -7,6 +7,13 @@ body {
     font-size: 16px;
     color: #222;
     background-color: #fafafa;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+  flex: 1;
 }
 
 header {
@@ -14,14 +21,29 @@ header {
     padding: 2rem 1rem 1rem;
     margin-top: 3rem;
     border-bottom: 1px solid #ccc;
+    font-family: Arial, Helvetica, sans-serif;
+
 }
 
 header h1 {
-    font-size: 1.3rem;
-    font-weight: normal;
+    font-size: 1.4rem;
+    font-weight: bolder;
+    font-variant: small-caps;
     letter-spacing: 0.03em;
 }
 
+header h2 {
+    font-size: 1.3rem;
+    font-weight: bolder;
+    font-variant: small-caps;
+    letter-spacing: 0.03em;
+}
+
+header h3 {
+    font-size: 1.2rem;
+    font-weight: normal;
+    letter-spacing: 0.03em;
+}
 /* ========== PANNEAU DE CONTRÔLE ========== */
 
 #control-panel {
@@ -40,9 +62,10 @@ header h1 {
 }
 
 #control-label {
-  font-size: 0.85rem;
+  font-size: 0.7rem;
   color: #888;
   text-transform: uppercase;
+  font-family: Arial, Helvetica, sans-serif;
   letter-spacing: 0.08em;
 }
 
@@ -52,12 +75,14 @@ header h1 {
   cursor: pointer;
   display: flex;
   align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
   gap: 0.4rem;
 }
 
 .home-btn {
   margin-left: auto;
   text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
   color: #888;
   font-size: 0.85rem;
   letter-spacing: 0.05em;
@@ -124,6 +149,8 @@ header h1 {
 .card-info {
   font-size: 0.85rem;
   color: #888;
+  font-family: Arial, Helvetica, sans-serif;
+
 }
 
 .card-separator {
@@ -198,6 +225,19 @@ header h1 {
   cursor: default;
 } 
 
+/* ========== FOOTER  ========== */
+
+footer {
+  background-color: #ffffff;
+  text-align: center;
+  font-size: 0.7rem;
+  color: #888;
+  font-family: Arial, Helvetica, sans-serif;
+  letter-spacing: 0.08em;
+  line-height: 1.6;
+  border-top: 1px solid #ddd;
+  padding: 1rem 2rem;
+}
 
 /* ========== BOUTON FERMER (SUPERFLU AVEC LE PANNEAU DE CONTRÔLE) 
 
