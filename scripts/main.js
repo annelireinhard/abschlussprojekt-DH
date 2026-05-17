@@ -46,11 +46,11 @@ function loadTexts() {
         const xmlStringEn = results[4]
 
         // --- Étape 3 : parser les quatre XML ---
-        const htmlSl = parseXML(xmlStringSl);
-        const htmlDe_1990 = parseXML(xmlStringDe_1990);
-        const htmlDe_2011 = parseXML(xmlStringDe_2011);
-        const htmlFr = parseXML(xmlStringFr);
-        const htmlEn = parseXML(xmlStringEn)
+        const htmlSl = parseXML(xmlStringSl, "sl");
+        const htmlDe_1990 = parseXML(xmlStringDe_1990, "de-1990");
+        const htmlDe_2011 = parseXML(xmlStringDe_2011, "de-2011");
+        const htmlFr = parseXML(xmlStringFr, "fr");
+        const htmlEn = parseXML(xmlStringEn, "en")
 
         // --- Étape 4 : injecter le résultat dans la page ---
         document.getElementById("text-sl").appendChild(htmlSl);

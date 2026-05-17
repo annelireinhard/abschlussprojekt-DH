@@ -2,7 +2,7 @@
 // Ce fichier contient une seule fonction : parseXML()
 // Elle reçoit un fichier XML et retourne du HTML prêt à être affiché.
 
-function parseXML(xmlString) {
+function parseXML(xmlString, columnId) {
 
     // --- Étape 1 : transformer le texte brut en document XML lisible ---
     const parser = new DOMParser();
@@ -43,10 +43,12 @@ function parseXML(xmlString) {
             const segId = seg.getAttribute("xml:id");
             if (noteMap[segId]) {
                 const noteNumber = noteMap[segId].number;
-                const callSpan = document.createElement("span");
+                const callSpan = document.createElement("a");
                 callSpan.classList.add("note-call");
                 callSpan.textContent = noteNumber;
                 callSpan.setAttribute("data-note", segId);
+                callSpan.setAttribute("id", "call-" + noteNumber + "-" + columnId)
+                callSpan.setAttribute("href", "#note-" + noteNumber + "-" + columnId)
                 segSpan.appendChild(callSpan);
             }
 
@@ -54,16 +56,18 @@ function parseXML(xmlString) {
                 const pId = p.getAttribute("xml:id")
                 if (noteMap[pId]) {
                     const noteNumber = noteMap[pId].number;
-                    const callSpan = document.createElement("span");
+                    const callSpan = document.createElement("a");
                     callSpan.classList.add("note-call");
                     callSpan.textContent = noteNumber;
                     callSpan.setAttribute("data-note", segId);
+                    callSpan.setAttribute("id", "call-" + noteNumber + "-" + columnId)
+                    callSpan.setAttribute("href", "#note-" + noteNumber + "-" + columnId)
                     segSpan.appendChild(callSpan);
                 }
             }
-        
+
             // Ajouter le span au paragraphe
-        pDiv.appendChild(segSpan);
+            pDiv.appendChild(segSpan);
 
         });
 
@@ -73,7 +77,7 @@ function parseXML(xmlString) {
 
     // --- Construire la zone de notes en bas de carte s'il y a des notes ---
     if (Object.keys(noteMap).length > 0) {
-        const notesDiv = buildNotesSection(noteMap);
+        const notesDiv = buildNotesSection(noteMap, columnId);
         container.appendChild(notesDiv);
     }
 
@@ -134,7 +138,7 @@ function buildNoteMap(notes) {
 // ========== FONCTION: CREATION DE LA NOTE DE BAS DE PAGE ============
 // buildNotesSection() : construit la zone de notes en bas de carte
 
-function buildNotesSection(noteMap) {
+function buildNotesSection(noteMap, columnId) {
     const section = document.createElement("div");
     section.classList.add("notes-section");
 
@@ -147,8 +151,9 @@ function buildNotesSection(noteMap) {
         const noteDiv = document.createElement("div");
         noteDiv.classList.add("footnote", "segment");
         noteDiv.setAttribute("data-id", note.identifier);
+        noteDiv.setAttribute("id", "note-" + note.number + "-" + columnId)
 
-        noteDiv.innerHTML = "<span class='note-number'>" + note.number + ".</span> " + note.content + "<br>";
+        noteDiv.innerHTML = "<a href='#call-" + note.number + "-" + columnId +"'> <span class='note-number'>" + note.number + ".</span></a>" + note.content + "<br>";
 
         section.appendChild(noteDiv);
     });

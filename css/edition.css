@@ -214,7 +214,9 @@ header h3 {
 }
 
 .note-number {
-  font-weight: bold;
+  font-weight: bolder;
+  color: #888;
+
 }
 
 .note-call {
@@ -223,7 +225,12 @@ header h3 {
   color: #888;
   margin-left: 1px;
   cursor: default;
-} 
+  scroll-margin-top: 6rem;
+}
+
+.a {
+  color: #888;
+}
 
 /* ========== FOOTER  ========== */
 
