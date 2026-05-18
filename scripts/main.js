@@ -1,8 +1,7 @@
 // ========== MAIN.JS ==========
-// Ce fichier orchestre tout : il charge les fichiers XML,
-// appelle le parser, et affiche le résultat dans la page.
+// load XML-files, call parser, display texts, additional functionalities
 
-// --- Les chemins vers les fichiers XML ---
+
 const XML_FILES = {
     sl: "../source_texts/Severni_sij_Chap-1.xml",
     de_1990: "../source_texts/Nordlicht_1990_Chap-1.xml",
@@ -11,11 +10,11 @@ const XML_FILES = {
     en: "../source_texts/Northern_Lights_Chap-1.xml"
 };
 
-// ========== FONCTION PRINCIPALE ==========
+// ========== MAIN FUNCTION ==========
 
 function loadTexts() {
 
-    // --- Étape 1 : lancer le chargement des quatre fichiers en parallèle ---
+    // --- Load all files simultaneously ---
     const fetchSl = fetch(XML_FILES.sl).then(function (response) {
         return response.text();
     });
@@ -36,7 +35,7 @@ function loadTexts() {
         return response.text();
     });
 
-    // --- Étape 2 : attendre que les quatre fichiers soient chargés ---
+    // --- Wait for all files to be loaded (= control order of display) ---
     Promise.all([fetchSl, fetchDe_1990, fetchDe_2011, fetchFr, fetchEn]).then(function (results) {
 
         const xmlStringSl = results[0];
@@ -45,54 +44,53 @@ function loadTexts() {
         const xmlStringFr = results[3];
         const xmlStringEn = results[4]
 
-        // --- Étape 3 : parser les quatre XML ---
+        // --- Parse XML (= read and convert to html) ---
         const htmlSl = parseXML(xmlStringSl, "sl");
         const htmlDe_1990 = parseXML(xmlStringDe_1990, "de-1990");
         const htmlDe_2011 = parseXML(xmlStringDe_2011, "de-2011");
         const htmlFr = parseXML(xmlStringFr, "fr");
         const htmlEn = parseXML(xmlStringEn, "en")
 
-        // --- Étape 4 : injecter le résultat dans la page ---
+        // --- Place result onto the page ---
         document.getElementById("text-sl").appendChild(htmlSl);
         document.getElementById("text-de-1990").appendChild(htmlDe_1990);
         document.getElementById("text-de-2011").appendChild(htmlDe_2011);
         document.getElementById("text-fr").appendChild(htmlFr);
         document.getElementById("text-en").appendChild(htmlEn)
-        
-        // --- ajout de la synchronisation au clic ---
+
+        // --- Synchronisation click / highlights (see below) ---
         setupSync();
-        // --- synchronisation de l'affichage entre panneau de contrôle et textes ---
+        // --- Synchronisation control panel / texts (see below) ---
         setupControls();
 
     });
 }
 
-// ========== LANCEMENT ==========
+// ========== EXECUTE MAIN FUNCTION ==========
 loadTexts();
 
 
-// ========== SYNCHRONISATION AU CLIC ==========
+// ========== SYNCHRONISATION CLICK / HIGHLIGHT ==========
 
 function setupSync() {
 
-    // --- Étape 1 : écouter tous les clics sur la page ---
+    // --- Search for clicks on the page ---
     document.addEventListener("click", function (event) {
 
-        // --- Étape 2 : remonter jusqu'au segment cliqué ---
+        // --- Find corresponding segment ---
         const clickedSegment = event.target.closest(".segment");
 
-        // Si le clic n'est pas sur un segment, on ne fait rien
-        if (!clickedSegment) return;
-
-        // --- Étape 3 : lire l'identifiant du segment cliqué ---
-        const segmentId = clickedSegment.getAttribute("data-id");
-
-        // --- Étape 4 : effacer tous les surlignages existants ---
+        // Erase all previous highlights 
         document.querySelectorAll(".segment.highlight").forEach(function (el) {
             el.classList.remove("highlight");
         });
 
-        // --- Étape 5 : surligner tous les segments correspondants ---
+        if (!clickedSegment) return;
+
+        // --- Read identifier of the clicked segment ---
+        const segmentId = clickedSegment.getAttribute("data-id");
+
+        // --- Highlight all corresponding segments ---
         document.querySelectorAll('.segment[data-id="' + segmentId + '"]').forEach(function (el) {
             el.classList.add("highlight");
         });
@@ -100,29 +98,29 @@ function setupSync() {
     });
 }
 
-// ========== AFFICHER / MASQUER LES VERSIONS ==========
+// ========== DISPLAY / HIDE VERSIONS ==========
 
 function setupControls() {
 
-  // --- Étape 1 : récupérer toutes les cases à cocher du panneau ---
-  const checkboxes = document.querySelectorAll("#control-panel input[type='checkbox']");
+    // --- Search for all checkboxes in the control panel ---
+    const checkboxes = document.querySelectorAll("#control-panel input[type='checkbox']");
 
-  // --- Étape 2 : écouter chaque case à cocher ---
-  checkboxes.forEach(function(checkbox) {
+    // --- Search for any change in the checkboxes ---
+    checkboxes.forEach(function (checkbox) {
 
-    checkbox.addEventListener("change", function() {
+        checkbox.addEventListener("change", function () {
 
-      // --- Étape 3 : identifier la colonne correspondante ---
-      const columnId = checkbox.id.replace("check-", "column-"); //--- en fait on ne remplace que la partie de l'idée qui diffère ---
-      const column = document.getElementById(columnId);
+            // --- Identify corresponding column if there is a change (i.e. "check-sl" becomes "column-sl") ---
+            const columnId = checkbox.id.replace("check-", "column-");
+            const column = document.getElementById(columnId);
 
-      // --- Étape 4 : afficher ou masquer selon l'état de la case ---
-      if (checkbox.checked) {
-        column.classList.remove("hidden");
-      } else {
-        column.classList.add("hidden");
-      }
+            // --- Display or hide column depending on status of the checkbox ---
+            if (checkbox.checked) {
+                column.classList.remove("hidden");
+            } else {
+                column.classList.add("hidden");
+            }
 
+        });
     });
-  });
 }

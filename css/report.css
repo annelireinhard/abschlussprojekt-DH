@@ -1,4 +1,4 @@
-/* ========== GÉNÉRAL ========== */
+/* ========== GENERAL ========== */
 
 body {
     margin: 0;
@@ -37,7 +37,20 @@ header h1 {
   color: #444;
 }
 
-/* ========== PANNEAU DE CONTRÔLE ========== */
+.paragraph {
+   /* ========== margin-bottom: 1 rem;========== */
+    text-align: justify;
+    text-indent: 1.5em;
+
+}
+
+.segment {
+    display: inline;
+    line-height: 1.8;
+    hyphens: auto;
+}
+
+/* ========== CONTROL PANEL ========== */
 
 #control-panel {
   position: fixed;
@@ -70,22 +83,8 @@ header h1 {
 }
 
 
-/* ========== TEXTE ========== */
+/* ========== FOOTNOTES ========== */
 
-.paragraph {
-   /* ========== margin-bottom: 1 rem;========== */
-    text-align: justify;
-    text-indent: 1.5em;
-
-}
-
-.segment {
-    display: inline;
-    line-height: 1.8;
-    hyphens: auto;
-}
-
-/* ========== NOTES DE BAS DE PAGE ========== */
 .notes-section {
   margin-top: 2rem;
 }

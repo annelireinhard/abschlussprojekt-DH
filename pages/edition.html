@@ -1,15 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head> <!--Partie invisible (métadonnées de la page) -->
+<head> <!-- invisible (metadata) -->
     <meta charset="UTF-8"> <!-- = unicode -->
     <title>Drago Jančar multilingual – Edition</title>
-    <link rel="stylesheet" href="../css/edition.css"> <!--lien vers mon fichier css-->
+    <link rel="stylesheet" href="../css/edition.css"> <!--Link to CSS file -->
 </head>
 
-<body> <!--partie visible à l'écran-->
+<body> <!-- visible part -->
 
-    <!-- PANNEAU DE CONTRÔLE -->
     <div id="control-panel">
         <span id="control-label">Version ein-/ausblenden:</span>
         <label>
@@ -31,7 +30,7 @@
         <a href="../index.html" class="home-btn">Zur Startseite</a>
     </div>
 
-    <header> <!--titre général-->
+    <header>
         <h1>Drago Jančar</h1>
         <h2>Severni sij – Nordlicht – Aurore boréale – Northern Lights</h2>
         <h3>Poglavje / Kapitel / Chapitre / Chapter 1</h3>
@@ -44,7 +43,6 @@
                 <div class="card-info"><em>Severni sij</em> (1984)</div><br>
                 <hr class="card-separator">
                 <div class="card-chapter">1</div>
-                <!--- <button class="close-btn" data-target="column-sl" data-check="check-sl">✕</button>  ========== close button pour fermer le panneau MAIS superflu -->
             </div>
             <div class="text-content" id="text-sl"></div>
         </div>
@@ -54,7 +52,6 @@
                 <div class="card-info"><em>Nordlicht</em>, übersetzt von Peter Wieser (1990)</div><br>
                 <hr class="card-separator">
                 <div class="card-chapter">1</div>
-                <!--- <button class="close-btn" data-target="column-de" data-check="check-de">✕</button>  ========== close button pour fermer le panneau MAIS superflu -->
             </div>
             <div class="text-content" id="text-de-1990"></div>
         </div>
@@ -64,7 +61,6 @@
                 <div class="card-info"><em>Nordlicht</em>, übersetzt von Klaus Detlef Olof (2011)</div><br>
                 <hr class="card-separator">
                 <div class="card-chapter">1</div>
-                <!--- <button class="close-btn" data-target="column-de" data-check="check-de">✕</button>  ========== close button pour fermer le panneau MAIS superflu -->
             </div>
             <div class="text-content" id="text-de-2011"></div>
         </div>
@@ -74,7 +70,6 @@
                 <div class="card-info"><em>Aurore boréale</em>, traduit par Andrée Lück Gaye (2005)</div><br>
                 <hr class="card-separator">
                 <div class="card-chapter">1</div>
-                <!--- <button class="close-btn" data-target="column-fr" data-check="check-fr">✕</button> --->
             </div>
             <div class="text-content" id="text-fr"></div>
         </div>
@@ -84,28 +79,15 @@
                 <div class="card-info"><em>Northern Lights</em>, translated by Michael Biggins (2001)</div><br>
                 <hr class="card-separator">
                 <div class="card-chapter">1</div>
-                <!--- <button class="close-btn" data-target="column-en" data-check="check-en">✕</button>  ========== close button pour fermer le panneau MAIS superflu -->
             </div>
             <div class="text-content" id="text-en"></div>
         </div>
-
-        <!--- Ancienne version avec colonnes (remplacée par les cartes, avec le bouton X pour les masquer)
-        
-        <div class="column" id="column-sl">
-            <h2>Slovenščina</h2>
-            <div class="text-content" id="text-sl"></div>
-        </div>
-
-        <div class="column" id="column-fr">
-            <h2>Français</h2>
-            <div class="text-content" id="text-fr"></div>
-        </div> --->
 
     </main>
 
     <script src="../scripts/parser.js"></script>
     <script src="../scripts/main.js"></script>
-    <!--exécution des script APRES lecture du squelette HTML-->
+    <!-- execute scripts only after html structure is built -->
 
     <footer>
         <p>Anneli Reinhard</p>
@@ -115,7 +97,5 @@
     </footer>
 
 </body>
-
-
 
 </html>

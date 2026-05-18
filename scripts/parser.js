@@ -1,45 +1,43 @@
 // ========== PARSER.JS ==========
-// Ce fichier contient une seule fonction : parseXML()
-// Elle reçoit un fichier XML et retourne du HTML prêt à être affiché.
+// Receives XML-file and return formatted HTML-text
 
 function parseXML(xmlString, columnId) {
 
-    // --- Étape 1 : transformer le texte brut en document XML lisible ---
+    // --- convert raw rext to xml ---
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(xmlString, "application/xml");
 
-    // --- Étape 2 : créer un conteneur HTML vide qui recevra le résultat ---
+    // --- create empty html container (will receive text later) ---
     const container = document.createElement("div");
 
-    // --- NOUVEAU : collecter les notes avant de traiter les paragraphes ---
+    // --- Collect all footnotes (function buildNoteMap: see below) ---
     const notes = xmlDoc.querySelectorAll("note[type='footnote']");
     const noteMap = buildNoteMap(notes);
 
-    // --- Étape 3 : trouver tous les paragraphes dans le XML / génère une liste---
+    // --- Collect all paragraphs into a list and process them ---
     const paragraphs = xmlDoc.querySelectorAll("p");
 
-    // --- Étape 4 : traiter chaque paragraphe (élément de liste) ---
     paragraphs.forEach(function (p) {
 
-        // Créer une div HTML pour ce paragraphe
+        // Create <div> element (html) for each paragraph
         const pDiv = document.createElement("div");
         pDiv.classList.add("paragraph");
         pDiv.setAttribute("data-id", p.getAttribute("xml:id"));
 
-        // --- Étape 5 : trouver tous les segments dans ce paragraphe ---
+        // --- Collect all segments in the paragraph ---
         const segments = p.querySelectorAll("seg");
 
         segments.forEach(function (seg, index) {
 
-            // Créer un span HTML pour ce segment
+            // Create <span> element (html) for each segment
             const segSpan = document.createElement("span");
             segSpan.classList.add("segment");
             segSpan.setAttribute("data-id", seg.getAttribute("xml:id"));
 
-            // --- Étape 6 : gérer le contenu du segment (texte + italiques) ---
+            // --- format segment (function convertContent: see below) ---
             segSpan.innerHTML = convertContent(seg);
 
-            // --- Ajout d'un appel de note s'il y en a une ---
+            // --- Add note call if note is on a segment ---
             const segId = seg.getAttribute("xml:id");
             if (noteMap[segId]) {
                 const noteNumber = noteMap[segId].number;
@@ -52,6 +50,7 @@ function parseXML(xmlString, columnId) {
                 segSpan.appendChild(callSpan);
             }
 
+            // --- Add note call if note is on a paragraph (verification on last segment of a paragraph)
             if (index === segments.length - 1) {
                 const pId = p.getAttribute("xml:id")
                 if (noteMap[pId]) {
@@ -66,16 +65,16 @@ function parseXML(xmlString, columnId) {
                 }
             }
 
-            // Ajouter le span au paragraphe
+            // Add <span> to paragraph
             pDiv.appendChild(segSpan);
 
         });
 
-        // Ajouter le paragraphe au conteneur
+        // Add paragraph to container
         container.appendChild(pDiv);
     });
 
-    // --- Construire la zone de notes en bas de carte s'il y a des notes ---
+    // --- Build note section if necessary (buildNotesSection: see below) ---
     if (Object.keys(noteMap).length > 0) {
         const notesDiv = buildNotesSection(noteMap, columnId);
         container.appendChild(notesDiv);
@@ -86,21 +85,20 @@ function parseXML(xmlString, columnId) {
 }
 
 
-// ========== FONCTION DE FORMATAGE (ITALIQUE) ==========
-// convertContent() gère le contenu interne d'un segment :
-// elle convertit <hi rend="italic"> en <em> et récupère le texte.
+// ========== FUNCTION : FORMATTING (ITALICS) ==========
+// Convert <hi rend="italic"> (xml) to <em> (html)
 
 function convertContent(seg) {
     let html = " ";
 
     seg.childNodes.forEach(function (node) {
 
-        // Cas 1 : c'est du texte simple
+        // if plain text
         if (node.nodeType === Node.TEXT_NODE) {
             html += node.textContent;
         }
 
-        // Cas 2 : c'est une balise <hi rend="italic">
+        // if tag <hi rend="italic">
         else if (node.nodeName === "hi" && node.getAttribute("rend") === "italic") {
             html += "<em>" + node.textContent + "</em>";
         }
@@ -110,16 +108,14 @@ function convertContent(seg) {
     return html;
 }
 
-// ========== FONCTION: ASSOCIATION SEGMENT / NOTE (DICTIONNAIRE DE NOTES) ==========
-// buildNoteMap() : construit un dictionnaire des notes
-// associant chaque segment cible à son numéro et son contenu
+// ========== FUNCTION: ASSOCIATION SEGMENT / NOTE (NOTE DICTIONARY) ==========
 
 function buildNoteMap(notes) {
     const noteMap = {};
 
     notes.forEach(function (note, index) {
 
-        // "target" vaut par exemple "#s9" — on retire le # pour avoir "s9"
+        // If "target" = "#s9" — delete # to obtain "s9"
         const target = note.getAttribute("target").replace("#", "");
         const seg = note.querySelector("seg");
         const noteId = seg.getAttribute("xml:id");
@@ -135,9 +131,9 @@ function buildNoteMap(notes) {
     return noteMap;
 }
 
-// ========== FONCTION: CREATION DE LA NOTE DE BAS DE PAGE ============
-// buildNotesSection() : construit la zone de notes en bas de carte
+// ========== FUNCTION: CREATE FOOTNOTES ============
 
+// Build note section
 function buildNotesSection(noteMap, columnId) {
     const section = document.createElement("div");
     section.classList.add("notes-section");
@@ -145,6 +141,7 @@ function buildNotesSection(noteMap, columnId) {
     const separator = document.createElement("hr");
     section.appendChild(separator);
 
+// Create footnotes (incl. link towards target)
     Object.keys(noteMap).forEach(function (segId) {
         const note = noteMap[segId];
 
