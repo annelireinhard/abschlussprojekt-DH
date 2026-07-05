@@ -10,7 +10,7 @@ const XML_FILES = {
     en: "../source_texts/Northern_Lights_Chap-1.xml"
 };
 
-// ========== MAIN FUNCTION ==========
+// ========== TEXTLOADING FUNCTION ==========
 
 function loadTexts() {
 
