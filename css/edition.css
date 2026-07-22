@@ -108,7 +108,7 @@ header h3 {
   color: #444;
 }
 
-/* ========== COLUMN LAYOUT (INCL: CARDS ========== */
+/* ========== COLUMN LAYOUT (INCL: CARDS) ========== */
 
 #edition {
     display: flex;
@@ -116,12 +116,14 @@ header h3 {
     gap: 2rem;
     padding: 2rem;
     max-width: 1400px;
+    justify-content: center;
     margin: 0 auto;
 }
 
 .column {
     flex: 1;
     min-width: 0;
+    max-width: 900px;
     background-color: #ffffff;
     border: 1px solid #e0e0e0;
     border-radius: 6px;
