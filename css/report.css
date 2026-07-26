@@ -19,7 +19,7 @@ main {
 header {
     text-align: center;
     padding: 2rem 1rem 1rem;
-    margin-top: 3rem;
+    margin-top: 2rem;
     border-bottom: 1px solid #ccc;
 }
 
@@ -150,5 +150,5 @@ footer {
   letter-spacing: 0.08em;
   line-height: 1;
   border-top: 1px solid #ddd;
-  padding: 1rem 2rem;
+  padding: 1rem 1rem;
 }
